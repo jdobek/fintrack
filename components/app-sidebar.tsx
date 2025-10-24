@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { LayoutDashboardIcon } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -44,9 +45,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#" className="flex items-center gap-1">
-                <span className="text-2xl font-orelega">fintrack</span>
-                <span className="ml-1">✌️</span>
+              <a href="#" className="flex items-center">
+                <Image 
+                  src="/logo.svg" 
+                  alt="fintrack" 
+                  width={160} 
+                  height={40}
+                  className="h-auto"
+                />
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
