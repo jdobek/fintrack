@@ -67,6 +67,10 @@ module.exports = {
   			sans: [
   				'var(--font-sans)',
                     ...fontFamily.sans
+                ],
+  			orelega: [
+  				'var(--font-orelega)',
+                    ...fontFamily.serif
                 ]
   		},
   		keyframes: {
