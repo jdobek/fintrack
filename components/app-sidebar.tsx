@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { LayoutDashboardIcon } from "lucide-react"
+import { CalculatorIcon, LayoutDashboardIcon, SwitchCameraIcon } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -25,10 +25,13 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/dashboard",
+      url: "/",
       icon: LayoutDashboardIcon,
     },
-    { title: "Expenses", url: "/dashboard", icon: undefined },
+    { title: "Expenses", 
+      url: "/expenses", 
+      icon: SwitchCameraIcon 
+    },
   ],
   navClouds: [],
   navSecondary: [],
