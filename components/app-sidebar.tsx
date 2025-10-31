@@ -4,7 +4,6 @@ import * as React from "react"
 import Image from "next/image"
 import { LayoutDashboardIcon, SwitchCameraIcon } from "lucide-react"
 import { useEffect, useState } from "react"  // Dodane: useState i useEffect do dynamicznego pobierania usera
-
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
 import {
@@ -25,11 +24,12 @@ interface User {
   avatar?: string  // Opcjonalny avatar
 }
 
-// Typ dla NavUser (dostosowany do komponentu – name z fullName, default avatar)
+// Typ dla NavUser (dostosowany do komponentu – name z fullName, default avatar + inicjały opcjonalne)
 interface NavUserProps {
   name: string
   email: string
   avatar: string
+  initials?: string  // Opcjonalne – jeśli NavUser nie używa, TS nie zgłosi błędu
 }
 
 const data = {
@@ -50,6 +50,16 @@ const data = {
   documents: [],
 }
 
+// NOWA FUNKCJA: Generuj inicjały z fullName (np. "Jan Kowalski" → "JK")
+const getInitials = (fullName: string): string => {
+  if (!fullName) return "??"
+  return fullName
+    .split(' ')  // Podziel na słowa
+    .map(word => word.charAt(0).toUpperCase())  // Pierwsza litera upperCase
+    .join('')  // Połącz
+    .slice(0, 2)  // Ogranicz do 2 liter
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [user, setUser] = useState<User | null>(null)  // Stan dla dynamicznego usera
   const [loading, setLoading] = useState(true)  // Opcjonalne: loading podczas pobierania z localStorage
@@ -62,7 +72,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         const parsedUser = JSON.parse(storedUser) as User
         setUser(parsedUser)
       } catch (err) {
-        console.error('Błąd parsowania usera z localStorage:', err)
+        console.error('Error parsing user from localStorage:', err)
         localStorage.removeItem('user')  // Wyczyść invalid data
       }
     } else {
@@ -98,24 +108,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <div className="mt-auto" />
         </SidebarContent>
         <SidebarFooter>
-          {/* Placeholder podczas loading */}
+          {/* Placeholder podczas loading – initials opcjonalne, więc bez błędu TS */}
           <NavUser user={{ name: "Loading...", email: "", avatar: "/avatars/shadcn.jpg" }} />
         </SidebarFooter>
       </Sidebar>
     )
   }
 
-  // FIX: Twórz obiekt zgodny z NavUser props (name z fullName, default avatar)
+  // FIX: Twórz obiekt zgodny z NavUser props (name z fullName, default avatar + inicjały z fullName)
   const displayUser: NavUserProps = user 
     ? {
         name: user.fullName || user.email.split('@')[0],  // fullName z backendu lub fallback z email
         email: user.email,
         avatar: user.avatar || "/avatars/shadcn.jpg",  // Default avatar
+        initials: getInitials(user.fullName),  // NOWE: Dynamiczne inicjały z fullName (zamiast stałego "CN")
       }
     : { 
         name: "Guest", 
         email: "Log in", 
-        avatar: "/avatars/shadcn.jpg" 
+        avatar: "/avatars/shadcn.jpg",
+        initials: "G"  // Fallback inicjały
       }
 
   return (
