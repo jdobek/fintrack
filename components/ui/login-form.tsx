@@ -40,7 +40,7 @@ export function LoginForm({
 
     try {
       // Wyślij POST do backendu (/login endpoint)
-      const res = await fetch('http://localhost:4000/api/users/login', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

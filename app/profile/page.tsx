@@ -26,7 +26,7 @@ export default function ProfilePage() {
     }
 
     // Pobierz profil z backendu
-    fetch('http://localhost:4000/api/users/profile', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
