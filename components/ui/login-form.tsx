@@ -69,11 +69,8 @@ export function LoginForm({
   return (
     <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <FieldGroup>
-        <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Sign in to your account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            Enter your email and password below
-          </p>
+        <div className="flex flex-col items-left gap-2 text-left">
+          <h1 className="text-3xl font-bold">Welcome back!</h1>          
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -83,7 +80,7 @@ export function LoginForm({
             type="email" 
             value={formData.email}
             onChange={handleChange}
-            placeholder="m@example.com" 
+            placeholder="adam@example.com" 
             required 
           />          
         </Field>
@@ -97,9 +94,6 @@ export function LoginForm({
             onChange={handleChange}
             required 
           />
-          <FieldDescription>
-            Must be at least 8 characters long.
-          </FieldDescription>
         </Field>
         {error && (
           <p className="text-destructive text-sm text-center px-4 py-2 bg-destructive/10 rounded-md">

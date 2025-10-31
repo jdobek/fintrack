@@ -1,3 +1,9 @@
+"use client"
+
+import * as React from "react"
+import Image from "next/image"
+import Link from "next/link"  // NOWE: Do linkowania "Account" do /profile
+import { useRouter } from "next/navigation"  // NOWE: Do przekierowania w logout
 import {
   BellIcon,
   CreditCardIcon,
@@ -38,6 +44,7 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const router = useRouter()  // NOWE: Do przekierowania w logout
 
   const computeInitials = (value?: string) => {
     if (!value) {
@@ -66,6 +73,13 @@ export function NavUser({
     computeInitials(user.name) ||
     computeInitials(user.email.split("@")[0]) ||
     "??"
+
+  // NOWA FUNKCJA: Obsługa logout – wyczyść localStorage i przekieruj do /login
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    router.push('/login')
+  }
 
   return (
     <SidebarMenu>
@@ -111,22 +125,18 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCardIcon />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <BellIcon />
-                Notifications
-              </DropdownMenuItem>
+              {/* ZMIANA: Account jako Link do /profile */}
+              <DropdownMenuItem asChild>
+                <Link href="/profile">
+                  <UserCircleIcon className="mr-2 h-4 w-4" />
+                  Account
+                </Link>
+              </DropdownMenuItem>              
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOutIcon />
+            {/* ZMIANA: Logout z onClick + handleLogout */}
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOutIcon className="mr-2 h-4 w-4" />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
