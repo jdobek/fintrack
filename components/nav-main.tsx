@@ -1,7 +1,6 @@
-import { MailIcon, PlusCircleIcon, type LucideIcon } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -9,6 +8,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 export function NavMain({
   items,
@@ -17,6 +18,10 @@ export function NavMain({
     title: string
     url: string
     icon?: LucideIcon
+    badge?: {
+      text: string
+      className?: string
+    }
   }[]
 }) {
   return (
@@ -31,6 +36,16 @@ export function NavMain({
                 <Link href={item.url}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
+                  {item.badge ? (
+                    <Badge
+                      className={cn(
+                        "ml-auto border border-gray-200 bg-white text-gray-800 hover:border-gray-200 hover:bg-white hover:text-gray-800",
+                        item.badge.className
+                      )}
+                    >
+                      {item.badge.text}
+                    </Badge>
+                  ) : null}
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

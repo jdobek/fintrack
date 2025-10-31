@@ -38,6 +38,9 @@ const data = {
       title: "Dashboard",
       url: "/",
       icon: LayoutDashboardIcon,
+      badge: {
+        text: "soon",
+      },
     },
     { 
       title: "Expenses", 
