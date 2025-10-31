@@ -36,15 +36,14 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/",
       icon: LayoutDashboardIcon,
       badge: {
         text: "soon",
       },
     },
     { 
-      title: "Expenses", 
-      url: "/expenses", 
+      title: "Balance", 
+      url: "/balance", 
       icon: SwitchCameraIcon 
     },
   ],
@@ -142,7 +141,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5 hover:bg-transparent hover:text-inherit active:bg-transparent active:text-inherit focus-visible:ring-0"
             >
-              <a href="/expenses" className="flex items-center">
+              <a href="/balance" className="flex items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="fintrack" 

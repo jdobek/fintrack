@@ -16,7 +16,7 @@ export function NavMain({
 }: {
   items: {
     title: string
-    url: string
+    url?: string
     icon?: LucideIcon
     badge?: {
       text: string
@@ -31,22 +31,42 @@ export function NavMain({
         </SidebarMenu>
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} asChild>
-                <Link href={item.url}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                  {item.badge ? (
-                    <Badge
-                      className={cn(
-                        "ml-auto border border-gray-200 bg-white text-gray-800 hover:border-gray-200 hover:bg-white hover:text-gray-800",
-                        item.badge.className
-                      )}
-                    >
-                      {item.badge.text}
-                    </Badge>
-                  ) : null}
-                </Link>
+            <SidebarMenuItem key={`${item.title}-${item.url ?? "static"}`}>
+              <SidebarMenuButton
+                tooltip={item.title}
+                asChild={Boolean(item.url)}
+              >
+                {item.url ? (
+                  <Link href={item.url}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    {item.badge ? (
+                      <Badge
+                        className={cn(
+                          "ml-auto border border-gray-200 bg-white text-gray-800 hover:border-gray-200 hover:bg-white hover:text-gray-800",
+                          item.badge.className
+                        )}
+                      >
+                        {item.badge.text}
+                      </Badge>
+                    ) : null}
+                  </Link>
+                ) : (
+                  <>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    {item.badge ? (
+                      <Badge
+                        className={cn(
+                          "ml-auto border border-gray-200 bg-white text-gray-800 hover:border-gray-200 hover:bg-white hover:text-gray-800",
+                          item.badge.className
+                        )}
+                      >
+                        {item.badge.text}
+                      </Badge>
+                    ) : null}
+                  </>
+                )}
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

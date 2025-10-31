@@ -32,7 +32,7 @@ export default function ExpensesPage() {
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               <div className="px-6 lg:px-6 flex items-center justify-between">
               <h1 className={`${fontOrelega.className} text-2xl`} style={{ fontSize: "36px" }}>
-                  Expenses
+                  Balance
                 </h1>
                 {expenses.length > 0 && (
                   <Button variant="default" onClick={addExpense}>
