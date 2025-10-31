@@ -15,10 +15,7 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  // Usunięte themeColor z metadata
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
@@ -52,4 +49,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </html>
     </>
   )
+}
+
+// NOWE: Dodaj na końcu pliku – przeniesienie themeColor do viewport
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 }
