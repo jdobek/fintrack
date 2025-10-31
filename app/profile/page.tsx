@@ -35,7 +35,7 @@ export default function ProfilePage() {
     })
     .then(res => {
       if (!res.ok) {
-        throw new Error('Błąd autoryzacji – zaloguj się ponownie.')
+        throw new Error('Authorization error - please log in again.')
       }
       return res.json()
     })
@@ -59,7 +59,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>Ładowanie profilu...</p>
+        <p>Loading profile...</p>
       </div>
     )
   }
@@ -68,7 +68,7 @@ export default function ProfilePage() {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <p className="text-destructive">{error}</p>
-        <Button onClick={() => window.location.href = '/signup'} className="ml-4">Spróbuj ponownie</Button>
+        <Button onClick={() => window.location.href = '/signup'} className="ml-4">Try again</Button>
       </div>
     )
   }
@@ -76,7 +76,7 @@ export default function ProfilePage() {
   if (!user) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>Brak dostępu – zaloguj się.</p>
+        <p>Access denied – please log in.</p>
       </div>
     )
   }
@@ -85,15 +85,15 @@ export default function ProfilePage() {
     <div className="container mx-auto p-6 max-w-md">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Twój profil</CardTitle>
+          <CardTitle className="text-2xl">Your profile</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* FIX: Optional chaining ? dla bezpieczeństwa, choć user nie jest null */}
-          <p><strong>Imię i nazwisko:</strong> {user.fullName}</p>
+          <p><strong>Full name:</strong> {user.fullName}</p>
           <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Utworzono:</strong> {new Date(user.createdAt).toLocaleDateString('pl-PL')}</p>
+          <p><strong>Created:</strong> {new Date(user.createdAt).toLocaleDateString('pl-PL')}</p>
           <Button onClick={handleLogout} variant="destructive" className="w-full">
-            Wyloguj się
+            Log out
           </Button>
         </CardContent>
       </Card>
