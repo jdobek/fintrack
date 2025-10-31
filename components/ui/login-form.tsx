@@ -33,7 +33,7 @@ export function LoginForm({
 
     // Walidacja podstawowa (email, hasło niepuste)
     if (!formData.email || !formData.password) {
-      setError('Wypełnij wszystkie pola.')
+      setError('Fill in all fields.')
       setLoading(false)
       return
     }
@@ -48,7 +48,7 @@ export function LoginForm({
 
       if (!res.ok) {
         const data = await res.json()
-        throw new Error(data.message || 'Błąd logowania')
+        throw new Error(data.message || 'Login error')
       }
 
       const data = await res.json()
@@ -56,12 +56,12 @@ export function LoginForm({
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
-      console.log('Logowanie udane!', data.user)  // Debug
+      console.log('Login successful!', data.user)  // Debug
       // Przekieruj do profilu
-      router.push('/profile')
+      router.push('/expenses')
     } catch (err: any) {
-      setError(err.message || 'Nieprawidłowy email lub hasło. Spróbuj ponownie.')
-      console.error('Błąd login:', err)
+      setError(err.message || 'Invalid email or password. Please try again.')
+      console.error('Login error:', err)
     }
     setLoading(false)
   }

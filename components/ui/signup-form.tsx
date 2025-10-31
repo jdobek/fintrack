@@ -9,7 +9,6 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
@@ -33,14 +32,14 @@ export function SignupForm({
 
     // Walidacja: Porównaj hasła
     if (formData.password !== formData.confirmPassword) {
-      setError('Hasła nie pasują do siebie.')
+      setError('Passwords do not match.')
       setLoading(false)
       return
     }
 
     // Walidacja: Min. 8 znaków (jak w opisie)
     if (formData.password.length < 8) {
-      setError('Hasło musi mieć co najmniej 8 znaków.')
+      setError('Password must be at least 8 characters long.')
       setLoading(false)
       return
     }
@@ -59,7 +58,7 @@ export function SignupForm({
 
       if (!res.ok) {
         const data = await res.json()
-        throw new Error(data.message || 'Błąd rejestracji')
+        throw new Error(data.message || 'Registration error')
       }
 
       const data = await res.json()
@@ -67,12 +66,12 @@ export function SignupForm({
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
-      console.log('Rejestracja udana!', data.user)  // Debug w konsoli
-      // Przekieruj do profilu lub home (dostosuj ścieżkę)
-      router.push('/profile')  // Lub '/' dla home
+      console.log('Registration successful!', data.user)  // Debug w konsoli
+      // Przekieruj do expenses
+      router.push('/expenses')  // Lub '/' dla home
     } catch (err: any) {
-      setError(err.message || 'Błąd rejestracji. Spróbuj ponownie.')
-      console.error('Błąd signup:', err)
+      setError(err.message || 'Registration error. Please try again.')
+      console.error('Registration error:', err)
     }
     setLoading(false)
   }
