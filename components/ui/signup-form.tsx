@@ -46,7 +46,7 @@ export function SignupForm({
 
     try {
       // Wyślij POST do backendu (fetch natywny w Next.js)
-      const res = await fetch('http://localhost:4000/api/users/signup', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -67,8 +67,8 @@ export function SignupForm({
       localStorage.setItem('user', JSON.stringify(data.user))
 
       console.log('Registration successful!', data.user)  // Debug w konsoli
-      // Przekieruj do expenses
-      router.push('/expenses')  // Lub '/' dla home
+      // Przekieruj do balance
+      router.push('/balance')  // Lub '/' dla home
     } catch (err: any) {
       setError(err.message || 'Registration error. Please try again.')
       console.error('Registration error:', err)
