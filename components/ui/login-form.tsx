@@ -58,7 +58,7 @@ export function LoginForm({
 
       console.log('Login successful!', data.user)  // Debug
       // Przekieruj do profilu
-      router.push('/expenses')
+      router.push('/balance')
     } catch (err: any) {
       setError(err.message || 'Invalid email or password. Please try again.')
       console.error('Login error:', err)
